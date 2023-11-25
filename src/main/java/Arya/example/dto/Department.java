@@ -1,28 +1,23 @@
 package Arya.example.dto;
 
-//import lombok.ToString;
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-//@ToString
 @Setter
-@AllArgsConstructor
+@EqualsAndHashCode
 @Getter
+@ToString
 
 public class Department {
     private String id;
     private static int nextId = 1;
     private String departmentName;
 
-    public Department(String name) {
+    public Department(String departmentName) {
         this.id = String.format("D%03d", nextId);
         nextId++;
-        this.departmentName = name;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("id=%s, departmentName=%s", id, departmentName);
+        this.departmentName = departmentName;
     }
 }
