@@ -5,46 +5,15 @@ import Arya.example.dto.Department;
 import Arya.example.dto.SchoolManagementSystem;
 import Arya.example.dto.Student;
 
+/**
+ * @author Arya Khosravi 2361373
+ * program that creates a school management system, teachers, students, courses and departments and assigns them to one
+ * another (look in SchoolManagementSystem class for the methods and what is assigned to each other)
+ */
+
 public class Main {
     public static void main(String[] args) {
-//        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem();
+        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem("Vanier");
 
-        /*
-        privat static final int MAX_STUDENT_NUM;
-        MAX_STUDENT_NUM = 200
-         */
-
-        // private Combo[] combo;
-        //
-        // to string method (addCourse)
-        // String courseStr = "[";
-        // for (Course courses : courses) {
-        //     if (courses != null) {
-        //         courseStr += courses + ", ";
-        //     }
-        // }
-        // courseStr += "]";
-        //
-        // Combo combo = new Combo[MAX_COMBO_NUM]
-        //
-        //
-        // if (comboNum < MAX_COMBO_NUM) {
-        // combo[comboNum] = combo
-        // } else {
-        // sout
-        // }
-
-        /*
-        addDish(Dish dish) {
-        if (dishes[0] == null) {
-        dishes[0] = dish;
-        } else if {
-        dishes[1] = dish;
-        } else {
-        sout There are already 2 dishes, add dish failed
-        }
-
-        }
-         */
     }
 }

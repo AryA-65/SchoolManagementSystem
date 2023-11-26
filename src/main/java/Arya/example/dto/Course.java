@@ -10,6 +10,10 @@ import lombok.ToString;
 @Getter
 @ToString
 
+/**
+ * class that creates an object course and assigns it values given by the user
+ */
+
 public class Course {
     private String id;
     private static int nextId = 0;
@@ -20,6 +24,12 @@ public class Course {
     private Student student;
     private String courseName;
 
+    /**
+     * method that assigns the object a course name, credit, id, teacher, student, number of students and the department it belongs to
+     * @param courseName the course name
+     * @param credit course credit
+     * @param department which department it belongs in
+     */
     public Course(String courseName, double credit, Department department) {
         this.courseName = courseName;
         this.credit = credit;
