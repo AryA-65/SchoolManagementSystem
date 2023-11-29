@@ -33,6 +33,6 @@ public class Teacher {
         this.lName = lName;
         ++nextId;
         this.id = String.format("T%03d", nextId);
-        this.department = null;
+        this.department = department;
     }
 }

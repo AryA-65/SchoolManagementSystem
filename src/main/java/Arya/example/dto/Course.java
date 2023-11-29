@@ -15,13 +15,14 @@ import lombok.ToString;
  */
 
 public class Course {
+    private static final byte MAX_STUDENTS = 5;
     private String id;
     private static int nextId = 0;
     private Department department;
     private double credit;
     private byte studentNum;
     private Teacher teacher;
-    private Student student;
+    private Student[] student;
     private String courseName;
 
     /**
@@ -36,7 +37,7 @@ public class Course {
         this.department = department;
         this.teacher = null;
         this.studentNum = 0;
-        this.student = null;
+        this.student = new Student[MAX_STUDENTS];
         this.id = String.format("C%03d", ++nextId);
     }
 }

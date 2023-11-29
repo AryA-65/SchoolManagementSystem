@@ -1,5 +1,15 @@
 package Arya.example.dto;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@EqualsAndHashCode
+@Getter
+@ToString
+
 /**
  * class that creates an object school management system and assigns it values given by the user
  * there are method that creates student, teachers, departments and courses, prints them and finds them
@@ -7,19 +17,28 @@ package Arya.example.dto;
  */
 
 public class SchoolManagementSystem {
-    private String smsName;
     private static final byte MAX_DEPARTMENT_NUM = 5;
     private static final byte MAX_COURSE_NUM = 30;
     private static final byte MAX_TEACHER_NUM = 20;
     private static final byte MAX_COURSE_REGISTER_NUM = 5;
     private static final int MAX_STUDENT_NUM = 200;
 
+    private String smsName;
+    private Department[] smsDepartments;
+    private Student[] smsStudents;
+    private Teacher[] smsTeachers;
+    private Course[] smsCourses;
+
     /**
-     *  constructor that assigns a name to the object
+     * constructor that assigns a name to the object
      * @param smsName the school management system name
      */
     public SchoolManagementSystem(String smsName) {
         this.smsName = smsName;
+        this.smsDepartments = new Department[MAX_DEPARTMENT_NUM];
+        this.smsTeachers = new Teacher[MAX_TEACHER_NUM];
+        this.smsCourses = new Course[MAX_COURSE_NUM];
+        this.smsStudents = new Student[MAX_STUDENT_NUM];
     }
 
     //department section
@@ -29,7 +48,17 @@ public class SchoolManagementSystem {
      * @param dName name of the department
      */
     public void addDepartment(String dName) {
-    
+        //test
+        if (smsDepartments[MAX_DEPARTMENT_NUM - 1] != null) {
+            System.out.printf("You've created the maximum allocated departments (%d)\n", MAX_DEPARTMENT_NUM);
+        } else {
+            for (int i = 0; i < MAX_DEPARTMENT_NUM; i++) {
+                if (smsDepartments[i] == null) {
+                    smsDepartments[i] = new Department(dName);
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -38,6 +67,12 @@ public class SchoolManagementSystem {
      * @return returns the department
      */
     public Department findDepartment(String dId) {
+        for (int i = 0; i < MAX_DEPARTMENT_NUM; i++) {
+            if (smsDepartments[i].getId().equals(dId)) {
+                return smsDepartments[i];
+            }
+        }
+        System.out.printf("The department with id %s does not exist or is out of bound\n", dId);
         return null; //temporary return value
     }
 
@@ -45,7 +80,11 @@ public class SchoolManagementSystem {
      * method that prints all the departments (only the non-null ones)
      */
     public void printDepartments() {
-
+        for (int i = 0; i < MAX_DEPARTMENT_NUM; i++) {
+            if (smsDepartments[i] != null) {
+                System.out.println(smsDepartments[i]);
+            }
+        }
     }
 
     //course section
@@ -54,10 +93,19 @@ public class SchoolManagementSystem {
      * adds a course and assigns a teacher to the course
      * @param cName the course name
      * @param cred the course credit
-     * @param tId the teacher id
+     * @param dId the teacher id
      */
-    public void addCourse(String cName, double cred, String tId) {
-
+    public void addCourse(String cName, double cred, String dId) {
+        if (smsCourses[MAX_COURSE_NUM - 1] != null) {
+            System.out.printf("You've reached the maximum allocated courses (%d)\n", MAX_COURSE_NUM);
+        } else {
+            for (int i = 0; i < MAX_COURSE_NUM; i++) {
+                if (smsCourses[i] == null) {
+                    smsCourses[i] = new Course(cName, cred, findDepartment(dId));
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -66,23 +114,37 @@ public class SchoolManagementSystem {
      * @return returns a course
      */
     public Course findCourse(String cId) {
+        for (int i = 0; i < MAX_COURSE_NUM; i++) {
+            if (smsCourses[i].getId().equals(cId)) {
+                return smsCourses[i];
+            }
+        }
+        System.out.printf("The course with id %s does not exist or is out of bound\n", cId);
         return null;
     }
 
     /**
      * method that modifies the teacher assigned to a course
      * @param cId the course id
-     * @param tid the teacher id
+     * @param tId the teacher id
      */
-    public void modifyCourseTeacher(String cId, String tid) {
+    public void modifyCourseTeacher(String cId, String tId) {
+        Course course = findCourse(cId);
 
+        if (course != null && findTeacher(tId) != null) {
+            course.setTeacher(findTeacher(tId));
+        }
     }
 
     /**
      * displays all courses, except the ones that are null
      */
     public void printCourses() {
-
+        for (int i = 0; i < MAX_COURSE_NUM; i++) {
+            if (smsCourses[i] != null) {
+                System.out.println(smsCourses[i]);
+            }
+        }
     }
 
     //teacher section
@@ -93,7 +155,16 @@ public class SchoolManagementSystem {
      * @param dId department which they belong to
      */
     public void addTeacher(String fName, String lName, String dId) {
-
+        if (smsTeachers[MAX_TEACHER_NUM - 1] != null) {
+            System.out.printf("You've reached the maximum allocated teachers (%d)\n", MAX_TEACHER_NUM);
+        } else {
+            for (int i = 0; i < MAX_TEACHER_NUM; i++) {
+                if (smsTeachers[i] == null) {
+                    smsTeachers[i] = new Teacher(fName, lName, findDepartment(dId));
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -102,14 +173,24 @@ public class SchoolManagementSystem {
      * @return returns a teacher
      */
     public Teacher findTeacher(String tId) {
-        return null; //temporary return value
+        for (int i = 0; i < MAX_TEACHER_NUM; i++) {
+            if (smsTeachers[i].getId().equals(tId)) {
+                return smsTeachers[i];
+            }
+        }
+        System.out.printf("The teacher with id %s does not exist or is out of bound\n", tId);
+        return null;
     }
 
     /**
      * prints all teachers, except for the ones that are null
      */
     public void printTeachers() {
-
+        for (int i = 0; i < MAX_TEACHER_NUM; i++) {
+            if (smsTeachers[i] != null) {
+                System.out.println(smsTeachers[i]);
+            }
+        }
     }
 
     //student section
@@ -120,7 +201,16 @@ public class SchoolManagementSystem {
      * @param dId the course id
      */
     public void addStudent(String fName, String lName, String dId) {
-
+        if (smsStudents[MAX_STUDENT_NUM - 1] != null) {
+            System.out.printf("You've reached the maximum allocated students (%d)\n", MAX_STUDENT_NUM);
+        } else {
+            for (int i = 0; i < MAX_STUDENT_NUM; i++) {
+                if (smsStudents[i] == null) {
+                    smsStudents[i] = new Student(fName, lName, findDepartment(dId));
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -129,14 +219,24 @@ public class SchoolManagementSystem {
      * @return returns a student
      */
     public Student findStudent(String sId) {
-        return null; //temporary return value
+        for (int i = 0; i < MAX_STUDENT_NUM; i++) {
+            if (smsStudents[i].getId().equals(sId)) {
+                return smsStudents[i];
+            }
+        }
+        System.out.printf("The teacher with id %s does not exist or is out of bound\n", sId);
+        return null;
     }
 
     /**
      * prints all students, except the ones that are null
      */
     public void printStudents() {
-
+        for (int i = 0; i < MAX_STUDENT_NUM; i++) {
+            if (smsStudents[i] != null) {
+                System.out.println(smsStudents[i]);
+            }
+        }
     }
 
     /**
@@ -145,6 +245,15 @@ public class SchoolManagementSystem {
      * @param cId the course id
      */
     public void registerCourse(String sId, String cId) {
-
+        if (findStudent(sId).getCourseNum() <= 5) {
+            if (findCourse(cId).getStudentNum() <= 5) {
+                String name = findStudent(sId).getFName() + " " + findStudent(sId).getLName();
+                System.out.printf("%s with id %s just registered a course with id %s\n", name, sId,cId);
+            } else {
+                System.out.printf("The course with id %s has already been registered by 5 students\n", cId);
+            }
+        } else {
+            System.out.printf("The student with id %s has already registered for 5 courses\n", sId);
+        }
     }
 }
