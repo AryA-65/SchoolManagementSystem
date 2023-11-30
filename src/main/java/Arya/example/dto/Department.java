@@ -3,12 +3,10 @@ package Arya.example.dto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Setter
 @EqualsAndHashCode
 @Getter
-@ToString
 
 /**
  * class that creates an object department and assigns it values given by the user
@@ -27,5 +25,10 @@ public class Department {
         this.id = String.format("D%03d", nextId);
         nextId++;
         this.departmentName = departmentName;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Department(id=%s, department=%s)", id, departmentName);
     }
 }

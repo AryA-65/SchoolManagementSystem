@@ -40,6 +40,8 @@ public class Main {
         //adding and printing student
         schoolManagementSystem.addStudent("arya", "khosravi", "D002");
         schoolManagementSystem.printStudents();
+        schoolManagementSystem.addStudent("joshua", "eid", "D002");
+        schoolManagementSystem.printStudents();
 
         //adding and printing a course
         schoolManagementSystem.addCourse("CSM", 3.0, "D002");
@@ -50,8 +52,9 @@ public class Main {
         schoolManagementSystem.printCourses();
 
         //register course
-//        schoolManagementSystem.registerCourse("S001", "C001");
-//        schoolManagementSystem.printStudents();
-//        schoolManagementSystem.printCourses();
+        schoolManagementSystem.registerCourse("S001", "C001");
+        schoolManagementSystem.registerCourse("S002", "C001");
+
+        System.out.println(schoolManagementSystem);
     }
 }

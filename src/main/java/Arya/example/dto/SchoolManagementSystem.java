@@ -3,12 +3,12 @@ package Arya.example.dto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+
+import java.util.Arrays;
 
 @Setter
 @EqualsAndHashCode
 @Getter
-@ToString
 
 /**
  * class that creates an object school management system and assigns it values given by the user
@@ -28,6 +28,7 @@ public class SchoolManagementSystem {
     private Student[] smsStudents;
     private Teacher[] smsTeachers;
     private Course[] smsCourses;
+    private String sNames;
 
     /**
      * constructor that assigns a name to the object
@@ -39,6 +40,7 @@ public class SchoolManagementSystem {
         this.smsTeachers = new Teacher[MAX_TEACHER_NUM];
         this.smsCourses = new Course[MAX_COURSE_NUM];
         this.smsStudents = new Student[MAX_STUDENT_NUM];
+        this.sNames = "";
     }
 
     //department section
@@ -133,6 +135,8 @@ public class SchoolManagementSystem {
 
         if (course != null && findTeacher(tId) != null) {
             course.setTeacher(findTeacher(tId));
+        } else {
+            System.out.printf("Cannot modify teacher for course with id %s\n", cId);
         }
     }
 
@@ -245,15 +249,60 @@ public class SchoolManagementSystem {
      * @param cId the course id
      */
     public void registerCourse(String sId, String cId) {
-        if (findStudent(sId).getCourseNum() <= 5) {
-            if (findCourse(cId).getStudentNum() <= 5) {
-                String name = findStudent(sId).getFName() + " " + findStudent(sId).getLName();
-                System.out.printf("%s with id %s just registered a course with id %s\n", name, sId,cId);
-            } else {
-                System.out.printf("The course with id %s has already been registered by 5 students\n", cId);
-            }
+        if (findStudent(sId).getCourseNum() <= 5 && findCourse(cId).getStudentNum() <= 5) {
+                Student[] s = findCourse(cId).getStudent();
+                Course[] c = findStudent(sId).getCourses();
+
+                for (byte i = findCourse(cId).getStudentNum(); i < 5 - findCourse(cId).getStudentNum(); i++) {
+                    if (s[i] == null) {
+                        s[i] = findStudent(sId);
+                        sNames += s[i].getFName() + " " + s[i].getLName() + ", ";
+                        findCourse(cId).setStudent(s);
+                        findCourse(cId).setStudentNum((byte) (i + 1));
+                        break;
+                    }
+                }
+                for (byte i = findStudent(sId).getCourseNum(); i < 5 - findStudent(sId).getCourseNum(); i++) {
+                    if (c[i] == null) {
+                        c[i] = findCourse(cId);
+                        findStudent(sId).setCourses(c);
+                        findStudent(sId).setCourseNum((byte) (i + 1));
+                        break;
+                    }
+                }
+
+                System.out.printf("Latest student info: %s\n", findStudent(sId));
+                System.out.printf("Latest course info: Course{id=%s, courseName=%s, credit=%.1f, teacher=%s, department=%s, students=[%s]}\n", cId, findCourse(cId).getCourseName(), findCourse(cId).getCredit(), (findCourse(cId).getTeacher().getFName() + " " + findCourse(cId).getTeacher().getLName()), findCourse(cId).getDepartment().getDepartmentName(), sNames);
         } else {
-            System.out.printf("The student with id %s has already registered for 5 courses\n", sId);
+            if (findStudent(sId).getCourseNum() >= 5) {
+                System.out.printf("The course with id %s has already been registered by 5 students\n", cId);
+            } else {
+                System.out.printf("The student with id %s has already registered for 5 courses\n", sId);
+            }
         }
+    }
+
+    @Override
+    public String toString() {
+        String tNames = "";
+        String cNames = "";
+        String dNames = "";
+        for (int i = 0; i < MAX_TEACHER_NUM; i++) {
+            if (smsTeachers[i] != null) {
+                tNames += smsTeachers[i].getFName() + " " + smsTeachers[i].getLName() + ", ";
+            }
+        }
+        for (int i = 0; i < MAX_COURSE_NUM; i++) {
+            if (smsCourses[i] != null) {
+                cNames += smsCourses[i].getCourseName() + ", ";
+            }
+        }
+        for (int i = 0; i < MAX_DEPARTMENT_NUM; i++) {
+            if (smsDepartments[i] != null) {
+                dNames += smsDepartments[i].getDepartmentName() + ", ";
+            }
+        }
+
+        return String.format("SchoolManagementSystem{name=%s, students=[%s], teachers=[%s], courses=[%s], departments=[%s]}", smsName, sNames, tNames, cNames, dNames);
     }
 }
