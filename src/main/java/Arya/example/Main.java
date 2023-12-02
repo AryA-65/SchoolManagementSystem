@@ -1,8 +1,7 @@
 package Arya.example;
 
 import Arya.example.dto.SchoolManagementSystem;
-
-//import java.util.Scanner;
+import java.util.Scanner;
 
 /**
  * @author Arya Khosravi 2361373
@@ -12,49 +11,241 @@ import Arya.example.dto.SchoolManagementSystem;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String fName;
+        String lName;
+        String id;
+        String temp;
 
-//        Scanner input = new Scanner(System.in);
+        System.out.println("Add School Management System Name (ex 'Vanier')");
+        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem(input.nextLine());
 
-//        do {
-//
-//        } while (true);
-
-        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem("Vanier");
-
-        /* test section */
-
-        //adding and finding departments, and printing
+        /* Testing modify course teacher and registering student */
+        schoolManagementSystem.addDepartment("arts");
         schoolManagementSystem.addDepartment("math");
         schoolManagementSystem.addDepartment("science");
-        schoolManagementSystem.addDepartment("social");
-        schoolManagementSystem.addDepartment("mechanics");
-        schoolManagementSystem.addDepartment("arts");
         schoolManagementSystem.addDepartment("health");
-        System.out.println(schoolManagementSystem.findDepartment("D001"));
-        schoolManagementSystem.printDepartments();
+        schoolManagementSystem.addDepartment("philosophy");
+        schoolManagementSystem.addStudent("arya", "khosravi", 75.0, "d001");
+        schoolManagementSystem.addStudentGender("male");
+        schoolManagementSystem.addStudent("joshua", "eid", 87.0, "d001");
+        schoolManagementSystem.addStudentGender("male");
+        schoolManagementSystem.addTeacher("yi", "wang", "d001");
+        schoolManagementSystem.addTeacherGender("male");
+        schoolManagementSystem.addCourse("photography", 3.0, "d001");
 
-        //adding and printing teacher
-        schoolManagementSystem.addTeacher("yi", "wang", "D002");
-        schoolManagementSystem.printTeachers();
+        do {
+            System.out.println("Select an Option\n1. Creating Objects and Others\n2. Find Objects\n3. Print Objects\n4. Exit");
+            temp = input.nextLine();
 
-        //adding and printing student
-        schoolManagementSystem.addStudent("arya", "khosravi", "D002");
-        schoolManagementSystem.printStudents();
-        schoolManagementSystem.addStudent("joshua", "eid", "D002");
-        schoolManagementSystem.printStudents();
+            if (temp.equalsIgnoreCase("4")) {
+                System.out.println("Exiting");
+                break;
+            }
 
-        //adding and printing a course
-        schoolManagementSystem.addCourse("CSM", 3.0, "D002");
-        schoolManagementSystem.printCourses();
+            if (temp.length() > 1) {
+                continue;
+            }
 
-        //modifying and printing a course
-        schoolManagementSystem.modifyCourseTeacher("C001", "T001");
-        schoolManagementSystem.printCourses();
+            switch (temp) {
+                case "1" -> { //merge Modifying Object with Create Objects
+                    System.out.println("Select an Option\n1. Create a Objects\n2. Modifying Object\n3. Exit");
+                    temp = input.nextLine();
+                    
+                    if (temp.equals("1")) {
+                        System.out.println("Select an Option\n1. Create a Department\n2. Create a Student\n3. Create a Teacher\n4. Create a Course\n5. Exit");
+                        temp = input.nextLine();
 
-        //register course
-        schoolManagementSystem.registerCourse("S001", "C001");
-        schoolManagementSystem.registerCourse("S002", "C001");
+                        if (temp.equalsIgnoreCase("5")) {
+                            break;
+                        }
 
-        System.out.println(schoolManagementSystem);
+                        if (temp.length() > 1) {
+                            continue;
+                        }
+
+                        switch (temp) {
+                            case "1" -> {
+                                System.out.println("Add Department Name");
+                                schoolManagementSystem.addDepartment(input.nextLine());
+                            }
+                            case "2" -> {
+                                try {
+                                    System.out.println("Add First Name");
+                                    fName = input.nextLine();
+                                    System.out.println("Add Last Name");
+                                    lName = input.nextLine();
+                                    System.out.println("Enter Student Score");
+                                    double score = input.nextDouble();
+                                    input.nextLine();
+                                    System.out.println("Department Id");
+                                    id = input.nextLine();
+                                    schoolManagementSystem.addStudent(fName, lName, score, id);
+                                    System.out.println("Add Gender");
+                                    schoolManagementSystem.addStudentGender(input.nextLine());
+                                } catch (Exception e) {
+                                    System.out.println("This Department Doesn't Exist");
+                                }
+                            }
+                            case "3" -> {
+                                try {
+                                    System.out.println("Add First Name");
+                                    fName = input.nextLine();
+                                    System.out.println("Add Last Name");
+                                    lName = input.nextLine();
+                                    System.out.println("Add to Department");
+                                    id = input.nextLine();
+                                    schoolManagementSystem.addTeacher(fName, lName, id);
+                                    System.out.println("Add Gender");
+                                    schoolManagementSystem.addTeacherGender(input.nextLine());
+                                } catch (Exception e) {
+                                    System.out.println("This Department Doesn't Exist");
+                                }
+                            }
+                            case "4" -> {
+                                String cName;
+                                double cred;
+                                try {
+                                    System.out.println("Add Course Name");
+                                    cName = input.nextLine();
+                                    System.out.println("Add Credit");
+                                    cred = input.nextDouble();
+                                    input.nextLine();
+                                    System.out.println("Department Id (ex 'D006')");
+                                    id = input.nextLine();
+                                    schoolManagementSystem.addCourse(cName, cred, id);
+                                } catch (Exception e) {
+                                    System.out.println("This Department Doesn't Exist");
+                                }
+
+                            }
+                            default -> {
+                            }
+                        }
+                    } else if (temp.equals("2")) {
+                        System.out.println("Select an Option\n1. Modify Course Teacher\n2. Register Student Course\n3. Exit");
+                        temp = input.nextLine();
+
+                        if (temp.equals("3")) {
+                            break;
+                        }
+
+                        switch (temp) {
+                            case "1" -> {
+                                System.out.println("Enter Course Id");
+                                String cId = input.nextLine();
+                                System.out.println("Enter Teacher Id");
+                                id = input.nextLine();
+                                schoolManagementSystem.modifyCourseTeacher(cId, id);
+                            }
+                            case "2" -> {
+                                System.out.println("Enter Course Id");
+                                String cId = input.nextLine();
+                                System.out.println("Enter Student Id");
+                                id = input.nextLine();
+                                schoolManagementSystem.registerCourse(id,cId);
+                            }
+                            default -> {}
+                        }
+                    }
+                }
+                case "2" -> {
+                    System.out.println("Select an Option\n1. Find a Department\n2. Find a Student\n3. Find a Teacher\n4. Find a Course\n5. Exit");
+                    temp = input.nextLine();
+
+                    if (temp.equalsIgnoreCase("5")) {
+                        break;
+                    }
+
+                    if (temp.length() > 1) {
+                        continue;
+                    }
+
+                    switch (temp) {
+                        case "1" -> {
+                            System.out.println("Enter Department Id");
+                            System.out.println(schoolManagementSystem.findDepartment(input.nextLine()));
+                        }
+                        case "2" -> {
+                            System.out.println("Find a Student");
+                            System.out.println(schoolManagementSystem.findStudent(input.nextLine()));
+                        }
+                        case "3" -> {
+                            System.out.println("Find a Teacher");
+                            System.out.println(schoolManagementSystem.findTeacher(input.nextLine()));
+                        }
+                        case "4" -> {
+                            System.out.println("Find a Course");
+                            System.out.println(schoolManagementSystem.findCourse(input.nextLine()));
+                        }
+                        default -> {
+                        }
+                    }
+                }
+                case "3" -> {
+                    System.out.println("Select an Option\n1. Print a Department\n2. Print a Student\n3. Print a Teacher\n4. Print a Course\n5. Print School Management System\n6. Exit");
+                    temp = input.nextLine();
+
+                    if (temp.equalsIgnoreCase("6")) {
+                        break;
+                    }
+
+                    if (temp.length() > 1) {
+                        continue;
+                    }
+
+                    switch (temp) {
+                        case "1" -> schoolManagementSystem.printDepartments();
+                        case "2" -> schoolManagementSystem.printStudents();
+                        case "3" -> schoolManagementSystem.printTeachers();
+                        case "4" -> schoolManagementSystem.printCourses();
+                        case "5" -> System.out.println(schoolManagementSystem);
+                        default -> {}
+                    }
+                }
+                default -> {}
+            }
+        } while (true);
+
+        /* test section (simpler version)*/
+//        //creating SchoolManagementSystem
+//        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem("Vanier");
+//
+//        //adding and finding departments, and printing
+//        schoolManagementSystem.addDepartment("math");
+//        schoolManagementSystem.addDepartment("science");
+//        schoolManagementSystem.addDepartment("social");
+//        schoolManagementSystem.addDepartment("mechanics");
+//        schoolManagementSystem.addDepartment("arts");
+//        schoolManagementSystem.addDepartment("health");
+//        System.out.println(schoolManagementSystem.findDepartment("D001"));
+//        schoolManagementSystem.printDepartments();
+//
+//        //adding and printing teacher
+//        schoolManagementSystem.addTeacher("yi", "wang", "D002");
+//        schoolManagementSystem.addTeacherGender("MALE");
+//        schoolManagementSystem.printTeachers();
+//
+//        //adding and printing student
+//        schoolManagementSystem.addStudent("arya", "khosravi","D002");
+//        schoolManagementSystem.addStudentGender("asjhfvsbjf");
+//        schoolManagementSystem.addStudentGender("male");
+//        schoolManagementSystem.addStudent("joshua", "eid","D002");
+//        schoolManagementSystem.addStudentGender("male");
+//        schoolManagementSystem.printStudents();
+//
+//        //adding and printing a course
+//        schoolManagementSystem.addCourse("CSM", 3.0, "D002");
+//        schoolManagementSystem.printCourses();
+//
+//        //modifying and printing a course
+//        schoolManagementSystem.modifyCourseTeacher("C001", "T001");
+//        schoolManagementSystem.printCourses();
+//
+//        //register course
+//        schoolManagementSystem.registerCourse("S001", "C001");
+//        schoolManagementSystem.registerCourse("S002", "C001");
+//
+//        System.out.println(schoolManagementSystem);
     }
 }

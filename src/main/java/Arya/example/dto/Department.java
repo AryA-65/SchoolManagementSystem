@@ -27,6 +27,10 @@ public class Department {
         this.departmentName = departmentName;
     }
 
+    /**
+     *
+     * @return values of the object in string form
+     */
     @Override
     public String toString() {
         return String.format("Department(id=%s, department=%s)", id, departmentName);

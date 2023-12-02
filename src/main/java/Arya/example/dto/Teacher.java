@@ -24,7 +24,7 @@ public class Teacher {
      * constructor that assigns the object a teacher first name, last name, id and department they belong to
      * @param fName teacher first name
      * @param lName teacher last name
-     * @param department which departemnt the teacher belongs to
+     * @param department which department the teacher belongs to
      */
     public Teacher(String fName, String lName, Department department) {
         this.fName = fName;
@@ -35,6 +35,10 @@ public class Teacher {
         this.gender = null;
     }
 
+    /**
+     * method that
+     * @return values of the object in string form
+     */
     @Override
     public String toString() {
         return String.format("Teacher{id=%s, fName=%s, lName=%s, gender=%s, department=%s}", id, fName, lName, gender, department.getDepartmentName());

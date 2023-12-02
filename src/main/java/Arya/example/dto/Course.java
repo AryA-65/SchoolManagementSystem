@@ -3,7 +3,6 @@ package Arya.example.dto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Arrays;
 
 @Setter
 @EqualsAndHashCode
@@ -23,7 +22,7 @@ public class Course {
     private Teacher teacher;
     private Student[] student;
     private String courseName;
-//    private Gender gender;
+    private double avgScore;
 
     /**
      * method that assigns the object a course name, credit, id, teacher, student, number of students and the department it belongs to
@@ -39,20 +38,24 @@ public class Course {
         this.studentNum = 0;
         this.student = new Student[MAX_STUDENT_NUM];
         this.id = String.format("C%03d", ++nextId);
-//        this.gender = null;
+        this.avgScore = 0;
     }
 
-
-
+    /**
+     *
+     * @return values of the object in string form
+     */
     @Override
     public String toString() {
         String names = "";
         for (int i = 0; i < MAX_STUDENT_NUM; i++) {
             if (student[i] != null) {
-                names = student[i].getFName() + " " + student[i].getLName() + ", ";
+                if (i == 0) {
+                    names = student[i].getFName() + " " + student[i].getLName();
+                } else
+                    names = ", " + student[i].getFName() + " " + student[i].getLName();
             }
         }
-
-        return String.format("Course{id=%s, courseName=%s, credit=%.1f, teacher=%s, department=%s, studentNums=%d, students=[%s]}", id, courseName, credit, teacher, department.getDepartmentName(), studentNum, names);
+        return String.format("Course{id=%s, courseName=%s, credit=%.1f, teacher=%s, department=%s, studentNums=%d, students=[%s], course average=%.1f}", id, courseName, credit, teacher, department.getDepartmentName(), studentNum, names, avgScore);
     }
 }
