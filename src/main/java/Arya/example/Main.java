@@ -13,8 +13,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String fName;
-        String lName;
         String id;
         String temp;
 
@@ -39,7 +37,7 @@ public class Main {
             System.out.println("Select an Option\n1. Creating Objects and Others\n2. Find Objects\n3. Print Objects\n4. Exit");
             temp = input.nextLine();
 
-            if (temp.equalsIgnoreCase("4")) {
+            if (temp.equalsIgnoreCase("4") || temp.equalsIgnoreCase("e")) {
                 System.out.println("Exiting");
                 break;
             }
@@ -49,15 +47,15 @@ public class Main {
             }
 
             switch (temp) {
-                case "1" -> { //merge Modifying Object with Create Objects
+                case "1", "c" -> {
                     System.out.println("Select an Option\n1. Create a Objects\n2. Modifying Object\n3. Exit");
                     temp = input.nextLine();
 
-                    if (temp.equals("1")) {
+                    if (temp.equals("1") || temp.equals("c")) {
                         System.out.println("Select an Option\n1. Create a Department\n2. Create a Student\n3. Create a Teacher\n4. Create a Course\n5. Exit");
                         temp = input.nextLine();
 
-                        if (temp.equalsIgnoreCase("5")) {
+                        if (temp.equalsIgnoreCase("5") || temp.equalsIgnoreCase("e")) {
                             break;
                         }
 
@@ -66,16 +64,16 @@ public class Main {
                         }
 
                         switch (temp) {
-                            case "1" -> {
+                            case "1", "d" -> {
                                 System.out.println("Add Department Name");
                                 schoolManagementSystem.addDepartment(input.nextLine());
                             }
-                            case "2" -> {
+                            case "2", "s" -> {
                                 try {
                                     System.out.println("Add First Name");
-                                    fName = input.nextLine();
+                                    String fName = input.nextLine();
                                     System.out.println("Add Last Name");
-                                    lName = input.nextLine();
+                                    String lName = input.nextLine();
                                     System.out.println("Enter Student Score");
                                     double score = input.nextDouble();
                                     input.nextLine();
@@ -88,12 +86,12 @@ public class Main {
                                     System.out.println("This Department Doesn't Exist");
                                 }
                             }
-                            case "3" -> {
+                            case "3", "t" -> {
                                 try {
                                     System.out.println("Add First Name");
-                                    fName = input.nextLine();
+                                    String fName = input.nextLine();
                                     System.out.println("Add Last Name");
-                                    lName = input.nextLine();
+                                    String lName = input.nextLine();
                                     System.out.println("Add to Department (ex 'D023')");
                                     id = input.nextLine();
                                     schoolManagementSystem.addTeacher(fName, lName, id);
@@ -103,14 +101,12 @@ public class Main {
                                     System.out.println("This Department Doesn't Exist");
                                 }
                             }
-                            case "4" -> {
-                                String cName;
-                                double cred;
+                            case "4", "c" -> {
                                 try {
                                     System.out.println("Add Course Name");
-                                    cName = input.nextLine();
+                                    String cName = input.nextLine();
                                     System.out.println("Add Credit");
-                                    cred = input.nextDouble();
+                                    double cred = input.nextDouble();
                                     input.nextLine();
                                     System.out.println("Department Id (ex 'D006')");
                                     id = input.nextLine();
@@ -123,23 +119,23 @@ public class Main {
                             default -> {
                             }
                         }
-                    } else if (temp.equals("2")) {
+                    } else if (temp.equals("2") || temp.equals("m")) {
                         System.out.println("Select an Option\n1. Modify Course Teacher\n2. Register Student Course\n3. Exit");
                         temp = input.nextLine();
 
-                        if (temp.equals("3")) {
+                        if (temp.equalsIgnoreCase("3") || temp.equalsIgnoreCase("e")) {
                             break;
                         }
 
                         switch (temp) {
-                            case "1" -> {
+                            case "1", "m" -> {
                                 System.out.println("Enter Course Id (ex 'C092')");
                                 String cId = input.nextLine();
                                 System.out.println("Enter Teacher Id (ex 'T047')");
                                 id = input.nextLine();
                                 schoolManagementSystem.modifyCourseTeacher(cId, id);
                             }
-                            case "2" -> {
+                            case "2", "r" -> {
                                 System.out.println("Enter Course Id (ex 'C010')");
                                 String cId = input.nextLine();
                                 System.out.println("Enter Student Id (ex 'S011')");
@@ -151,11 +147,11 @@ public class Main {
                         }
                     }
                 }
-                case "2" -> {
+                case "2", "f" -> {
                     System.out.println("Select an Option\n1. Find a Department\n2. Find a Student\n3. Find a Teacher\n4. Find a Course\n5. Exit");
                     temp = input.nextLine();
 
-                    if (temp.equalsIgnoreCase("5")) {
+                    if (temp.equalsIgnoreCase("5") || temp.equalsIgnoreCase("e")) {
                         break;
                     }
 
@@ -164,19 +160,19 @@ public class Main {
                     }
 
                     switch (temp) {
-                        case "1" -> {
+                        case "1", "d" -> {
                             System.out.println("Enter Department Id (ex 'D064')");
                             System.out.println(schoolManagementSystem.findDepartment(input.nextLine()));
                         }
-                        case "2" -> {
+                        case "2", "s" -> {
                             System.out.println("Find a Student (ex 'S025')");
                             System.out.println(schoolManagementSystem.findStudent(input.nextLine()));
                         }
-                        case "3" -> {
+                        case "3", "t" -> {
                             System.out.println("Find a Teacher (ex 'T074')");
                             System.out.println(schoolManagementSystem.findTeacher(input.nextLine()));
                         }
-                        case "4" -> {
+                        case "4", "c" -> {
                             System.out.println("Find a Course (ex 'C017')");
                             System.out.println(schoolManagementSystem.findCourse(input.nextLine()));
                         }
@@ -184,11 +180,11 @@ public class Main {
                         }
                     }
                 }
-                case "3" -> {
+                case "3", "p" -> {
                     System.out.println("Select an Option\n1. Print a Department\n2. Print a Student\n3. Print a Teacher\n4. Print a Course\n5. Print School Management System\n6. Exit");
                     temp = input.nextLine();
 
-                    if (temp.equalsIgnoreCase("6")) {
+                    if (temp.equalsIgnoreCase("6") || temp.equalsIgnoreCase("e")) {
                         break;
                     }
 
@@ -197,11 +193,11 @@ public class Main {
                     }
 
                     switch (temp) {
-                        case "1" -> schoolManagementSystem.printDepartments();
-                        case "2" -> schoolManagementSystem.printStudents();
-                        case "3" -> schoolManagementSystem.printTeachers();
-                        case "4" -> schoolManagementSystem.printCourses();
-                        case "5" -> System.out.println(schoolManagementSystem);
+                        case "1", "d" -> schoolManagementSystem.printDepartments();
+                        case "2", "s" -> schoolManagementSystem.printStudents();
+                        case "3", "t" -> schoolManagementSystem.printTeachers();
+                        case "4", "c" -> schoolManagementSystem.printCourses();
+                        case "5", "m" -> System.out.println(schoolManagementSystem);
                         default -> {
                         }
                     }
@@ -211,7 +207,7 @@ public class Main {
             }
         } while (true);
 
-        /* test section (simpler version)*/
+        /* simple version (test section)*/
 //        //creating SchoolManagementSystem
 //        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem("Vanier");
 //
