@@ -42,7 +42,7 @@ public class Course {
     }
 
     /**
-     *
+     * method that prints the object
      * @return values of the object in string form
      */
     @Override

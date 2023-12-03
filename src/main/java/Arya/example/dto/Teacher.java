@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Teacher {
     private String fName;
     private String lName;
-    private Gender gender; //adding later
+    private Gender gender;
     private Department department;
     private String id;
     private static int nextId = 0;
@@ -36,7 +36,7 @@ public class Teacher {
     }
 
     /**
-     * method that
+     * method that prints the object
      * @return values of the object in string form
      */
     @Override

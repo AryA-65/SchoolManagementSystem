@@ -47,7 +47,6 @@ public class SchoolManagementSystem {
      */
     public void addDepartment(String dName) {
         dName = toUpper(dName);
-
         if (smsDepartments[MAX_DEPARTMENT_NUM - 1] != null) {
             System.out.printf("You've created the maximum allocated departments (%d)\n", MAX_DEPARTMENT_NUM);
         } else {
@@ -67,7 +66,6 @@ public class SchoolManagementSystem {
      */
     public Department findDepartment(String dId) {
         dId = toUpper(dId);
-
         for (int i = 0; i < MAX_DEPARTMENT_NUM; i++) {
             if (smsDepartments[i].getId().equals(dId)) {
                 return smsDepartments[i];
@@ -99,7 +97,6 @@ public class SchoolManagementSystem {
     public void addCourse(String cName, double cred, String dId) {
         cName = toUpper(cName);
         dId = toUpper(dId);
-
         if (cred >= 1.0 && cred <= 6.0) {
             if (smsCourses[MAX_COURSE_NUM - 1] != null) {
                 System.out.printf("You've reached the maximum allocated courses (%d)\n", MAX_COURSE_NUM);
@@ -124,7 +121,6 @@ public class SchoolManagementSystem {
      */
     public Course findCourse(String cId) {
         cId = toUpper(cId);
-
         for (int i = 0; i < MAX_COURSE_NUM; i++) {
             if (smsCourses[i].getId().equals(cId)) {
                 return smsCourses[i];
@@ -148,7 +144,6 @@ public class SchoolManagementSystem {
                 result += student[i].getScore();
             }
         }
-
         return (result / findCourse(cId).getStudentNum());
     }
 
@@ -160,7 +155,6 @@ public class SchoolManagementSystem {
     public void modifyCourseTeacher(String cId, String tId) {
         cId = toUpper(cId);
         tId = toUpper(tId);
-
         if (findCourse(cId) != null && findTeacher(tId) != null) {
             findCourse(cId).setTeacher(findTeacher(tId));
         } else {
@@ -190,7 +184,6 @@ public class SchoolManagementSystem {
         fName = toUpper(fName);
         lName = toUpper(lName);
         dId = toUpper(dId);
-
         if (smsTeachers[MAX_TEACHER_NUM - 1] != null) {
             System.out.printf("You've reached the maximum allocated teachers (%d). Teacher not added\n", MAX_TEACHER_NUM);
         } else {
@@ -258,7 +251,6 @@ public class SchoolManagementSystem {
         fName = toUpper(fName);
         lName = toUpper(lName);
         dId = toUpper(dId);
-
         if (smsStudents[MAX_STUDENT_NUM - 1] != null) {
             System.out.printf("You've reached the maximum allocated students (%d). Student not added\n", MAX_STUDENT_NUM);
         } else {
@@ -324,7 +316,6 @@ public class SchoolManagementSystem {
         sId = toUpper(sId);
         cId = toUpper(cId);
         String sNames = "";
-
         if (findStudent(sId).getCourseNum() <= 5 && findCourse(cId).getStudentNum() <= 5) {
                 Student[] s = findCourse(cId).getStudent();
                 Course[] c = findStudent(sId).getCourses();
@@ -345,9 +336,8 @@ public class SchoolManagementSystem {
                     findStudent(sId).setCourses(c);
                     findStudent(sId).setCourseNum((byte) (i + 1));
                     break;
+                }
             }
-            }
-
             System.out.printf("Latest student info: %s\n", findStudent(sId));
             System.out.printf("Latest course info: Course{id=%s, courseName=%s, credit=%.1f, teacher=%s, department=%s, students=[%s], course average=%.1f}\n", cId, findCourse(cId).getCourseName(), findCourse(cId).getCredit(), (findCourse(cId).getTeacher().getFName() + " " + findCourse(cId).getTeacher().getLName()), findCourse(cId).getDepartment().getDepartmentName(), sNames, calcCourseAverage(cId));
         } else {
@@ -383,27 +373,20 @@ public class SchoolManagementSystem {
         StringBuilder tNames = new StringBuilder();
         StringBuilder cNames = new StringBuilder();
         StringBuilder dNames = new StringBuilder();
-        for (int i = 0; i < MAX_TEACHER_NUM; i++) {
-            if (smsTeachers[i] != null) {
-                tNames.append(i == 0 ? smsTeachers[i].getFName() + " " + smsTeachers[i].getLName() : ", " + smsTeachers[i].getFName() + " " + smsTeachers[i].getLName());
-            }
-        }
-        for (int i = 0; i < MAX_COURSE_NUM; i++) {
-            if (smsCourses[i] != null) {
-                cNames.append(i == 0 ? smsCourses[i].getCourseName() : ", " + smsCourses[i].getCourseName());
-            }
-        }
-        for (int i = 0; i < MAX_DEPARTMENT_NUM; i++) {
-            if (smsDepartments[i] != null) {
-                dNames.append(i == 0 ? smsDepartments[i].getDepartmentName() : ", " + smsDepartments[i].getDepartmentName());
-            }
-        }
         for (int i = 0; i < MAX_STUDENT_NUM; i++) {
             if (smsStudents[i] != null) {
                 sNames.append(i == 0 ? smsStudents[i].getFName() + " " + smsStudents[i].getLName() : ", " + smsStudents[i].getFName() + " " + smsStudents[i].getLName());
             }
+            if (i < MAX_TEACHER_NUM && smsTeachers[i] != null) {
+                tNames.append(i == 0 ? smsTeachers[i].getFName() + " " + smsTeachers[i].getLName() : ", " + smsTeachers[i].getFName() + " " + smsTeachers[i].getLName());
+            }
+            if (i < MAX_DEPARTMENT_NUM && smsDepartments[i] != null) {
+                dNames.append(i == 0 ? smsDepartments[i].getDepartmentName() : ", " + smsDepartments[i].getDepartmentName());
+            }
+            if (i < MAX_COURSE_NUM && smsCourses[i] != null) {
+                cNames.append(i == 0 ? smsCourses[i].getCourseName() : ", " + smsCourses[i].getCourseName());
+            }
         }
-
         return String.format("SchoolManagementSystem{name=%s, students=[%s], teachers=[%s], courses=[%s], departments=[%s]}", smsName, sNames, tNames.toString(), cNames.toString(), dNames.toString());
     }
 }

@@ -19,7 +19,7 @@ public class Student {
     private String lName;
     private double score;
     private Department department;
-    private Gender gender; //adding later
+    private Gender gender;
     private String id;
     private static int nextId = 0;
     private byte courseNum;
@@ -43,7 +43,7 @@ public class Student {
     }
 
     /**
-     *
+     * method that prints the object
      * @return values of the object in string form
      */
     @Override
