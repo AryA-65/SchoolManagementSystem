@@ -22,8 +22,7 @@ public class Department {
      * @param departmentName the department name (input)
      */
     public Department(String departmentName) {
-        this.id = String.format("D%03d", nextId);
-        nextId++;
+        this.id = String.format("D%03d", nextId++);
         this.departmentName = departmentName;
     }
 

@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * @author Arya Khosravi 2361373
  * program that creates a school management system, teachers, students, courses and departments and assigns them to one
- * another (look in SchoolManagementSystem class for the methods and what is assigned to each other)
+ * another (look in SchoolManagementSystem class for the methods and what is assigned to what)
  */
 
 public class Main {
@@ -20,18 +20,24 @@ public class Main {
         SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem(input.nextLine());
 
         /* Testing modify course teacher and registering student */
+//        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem("vanier");
 //        schoolManagementSystem.addDepartment("arts");
 //        schoolManagementSystem.addDepartment("math");
 //        schoolManagementSystem.addDepartment("science");
 //        schoolManagementSystem.addDepartment("health");
 //        schoolManagementSystem.addDepartment("philosophy");
-//        schoolManagementSystem.addStudent("arya", "khosravi", 75.0, "d001");
+//        schoolManagementSystem.addStudent("arya", "khosravi", "d001");
 //        schoolManagementSystem.addStudentGender("male");
-//        schoolManagementSystem.addStudent("joshua", "eid", 87.0, "d001");
+//        schoolManagementSystem.addStudent("joshua", "eid",  "d001");
 //        schoolManagementSystem.addStudentGender("male");
-//        schoolManagementSystem.addTeacher("yi", "wang", "d001");
+//        schoolManagementSystem.addTeacher("yi", "wang", (byte) 10, "d001");
+//        schoolManagementSystem.addTeacherGender("male");
+//        schoolManagementSystem.addTeacher("Mark", "wayne", (byte) 15, "d004");
 //        schoolManagementSystem.addTeacherGender("male");
 //        schoolManagementSystem.addCourse("photography", 3.0, "d001");
+//        schoolManagementSystem.addCourse("biology", 3.0, "d004");
+//        schoolManagementSystem.modifyCourseTeacher("c001", "t001");
+//        schoolManagementSystem.modifyCourseTeacher("c002", "t002");
 
         do {
             System.out.println("Select an Option\n1. Creating Objects and Others\n2. Find Objects\n3. Print Objects\n4. Exit");
@@ -74,12 +80,9 @@ public class Main {
                                     String fName = input.nextLine();
                                     System.out.println("Add Last Name");
                                     String lName = input.nextLine();
-                                    System.out.println("Enter Student Score");
-                                    double score = input.nextDouble();
-                                    input.nextLine();
                                     System.out.println("Department Id (ex 'D036')");
                                     id = input.nextLine();
-                                    schoolManagementSystem.addStudent(fName, lName, score, id);
+                                    schoolManagementSystem.addStudent(fName, lName, id);
                                     System.out.println("Add Gender (MALE, FEMALE, OTHERS)");
                                     schoolManagementSystem.addStudentGender(input.nextLine());
                                 } catch (Exception e) {
@@ -92,9 +95,12 @@ public class Main {
                                     String fName = input.nextLine();
                                     System.out.println("Add Last Name");
                                     String lName = input.nextLine();
+                                    System.out.println("Enter Teacher Experience");
+                                    byte years = input.nextByte();
+                                    input.nextLine();
                                     System.out.println("Add to Department (ex 'D023')");
                                     id = input.nextLine();
-                                    schoolManagementSystem.addTeacher(fName, lName, id);
+                                    schoolManagementSystem.addTeacher(fName, lName, years, id);
                                     System.out.println("Add Gender (MALE, FEMALE, OTHERS)");
                                     schoolManagementSystem.addTeacherGender(input.nextLine());
                                 } catch (Exception e) {
@@ -140,7 +146,10 @@ public class Main {
                                 String cId = input.nextLine();
                                 System.out.println("Enter Student Id (ex 'S011')");
                                 id = input.nextLine();
-                                schoolManagementSystem.registerCourse(id, cId);
+                                System.out.println("Add Score");
+                                double score = input.nextDouble();
+                                input.nextLine();
+                                schoolManagementSystem.registerCourse(id, cId, score);
                             }
                             default -> {
                             }

@@ -17,11 +17,11 @@ public class Student {
     private static final byte MAX_COURSE_NUM = 5;
     private String fName;
     private String lName;
-    private double score;
+    private double avgScore;
     private Department department;
     private Gender gender;
     private String id;
-    private static int nextId = 0;
+    private static int nextId = 1;
     private byte courseNum;
     private Course[] courses;
 
@@ -31,15 +31,15 @@ public class Student {
      * @param lName student last name
      * @param department which department the student belongs to
      */
-    public Student(String fName, String lName, double score, Department department) {
-        this.id = String.format("S%03d", ++nextId);
+    public Student(String fName, String lName, Department department) {
+        this.id = String.format("S%03d", nextId++);
         this.fName = fName;
         this.lName = lName;
         this.gender = null;
         this.department = department;
         this.courses = new Course[MAX_COURSE_NUM];
         this.courseNum = 0;
-        this.score = score;
+        this.avgScore = 0;
     }
 
     /**
@@ -48,15 +48,12 @@ public class Student {
      */
     @Override
     public String toString() {
-        String cNames = "";
+        StringBuilder names = new StringBuilder();
         for (int i = 0; i < MAX_COURSE_NUM; i++) {
             if (courses[i] != null) {
-                if (i == 0) {
-                    cNames = courses[i].getCourseName();
-                } else
-                    cNames = ", " + courses[i].getCourseName();
+                names.append(i == 0 ? courses[i].getCourseName() : ", " + courses[i].getCourseName());
             }
         }
-        return String.format("Student{id=%s, fname=%s, lname=%s, gender=%s, department=%s, courseNum=%d, courses=[%s]}", id, fName, lName, gender, department.getDepartmentName(), courseNum, cNames);
+        return String.format("Student{id=%s, fname=%s, lname=%s, gender=%s, courseNum=%d, courses=[%s], scores=%s, department=%s}", id, fName, lName, gender, courseNum, names, avgScore, department.getDepartmentName());
     }
 }

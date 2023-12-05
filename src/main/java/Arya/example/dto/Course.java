@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Course {
     private static final byte MAX_STUDENT_NUM = 5;
     private String id;
-    private static int nextId = 0;
+    private static int nextId = 1;
     private Department department;
     private double credit;
     private byte studentNum;
@@ -37,7 +37,7 @@ public class Course {
         this.teacher = null;
         this.studentNum = 0;
         this.student = new Student[MAX_STUDENT_NUM];
-        this.id = String.format("C%03d", ++nextId);
+        this.id = String.format("C%03d", nextId++);
         this.avgScore = 0;
     }
 
@@ -47,13 +47,10 @@ public class Course {
      */
     @Override
     public String toString() {
-        String names = "";
+        StringBuilder names = new StringBuilder();
         for (int i = 0; i < MAX_STUDENT_NUM; i++) {
             if (student[i] != null) {
-                if (i == 0) {
-                    names = student[i].getFName() + " " + student[i].getLName();
-                } else
-                    names = ", " + student[i].getFName() + " " + student[i].getLName();
+                names.append(i == 0 ? student[i].getFName() + " " + student[i].getLName() : ", " + student[i].getFName() + " " + student[i].getLName());
             }
         }
         return String.format("Course{id=%s, courseName=%s, credit=%.1f, teacher=%s, department=%s, studentNums=%d, students=[%s], course average=%.1f}", id, courseName, credit, teacher, department.getDepartmentName(), studentNum, names, avgScore);

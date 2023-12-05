@@ -18,7 +18,8 @@ public class Teacher {
     private Gender gender;
     private Department department;
     private String id;
-    private static int nextId = 0;
+    private static int nextId = 1;
+    private byte experience;
 
     /**
      * constructor that assigns the object a teacher first name, last name, id and department they belong to
@@ -26,13 +27,13 @@ public class Teacher {
      * @param lName teacher last name
      * @param department which department the teacher belongs to
      */
-    public Teacher(String fName, String lName, Department department) {
+    public Teacher(String fName, String lName, byte experience, Department department) {
         this.fName = fName;
         this.lName = lName;
-        ++nextId;
-        this.id = String.format("T%03d", nextId);
+        this.id = String.format("T%03d", nextId++);
         this.department = department;
         this.gender = null;
+        this.experience = experience;
     }
 
     /**
@@ -41,6 +42,6 @@ public class Teacher {
      */
     @Override
     public String toString() {
-        return String.format("Teacher{id=%s, fName=%s, lName=%s, gender=%s, department=%s}", id, fName, lName, gender, department.getDepartmentName());
+        return String.format("Teacher{id=%s, fName=%s, lName=%s, experience=%d, gender=%s, department=%s}", id, fName, lName, experience, gender, department.getDepartmentName());
     }
 }
