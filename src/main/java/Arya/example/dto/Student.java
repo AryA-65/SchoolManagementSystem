@@ -51,11 +51,15 @@ public class Student {
     @Override
     public String toString() {
         StringBuilder names = new StringBuilder();
+        StringBuilder scores = new StringBuilder();
         for (int i = 0; i < MAX_COURSE_NUM; i++) {
             if (courses[i] != null) {
                 names.append(i == 0 ? courses[i].getCourseName() : ", " + courses[i].getCourseName());
             }
+            if (score[i] != null) {
+                scores.append(i == 0 ? score[i] : ", " + score[i]);
+            }
         }
-        return String.format("Student{id=%s, fname=%s, lname=%s, gender=%s, courseNum=%d, courses=[%s], scores=%s, average=%.1f, department=%s}", id, fName, lName, gender, courseNum, names, Arrays.toString(score), avgScore, department.getDepartmentName());
+        return String.format("Student{id=%s, fname=%s, lname=%s, gender=%s, courseNum=%d, courses=[%s], scores=[%s], average=%.1f, department=%s}", id, fName, lName, gender, courseNum, names, scores, avgScore, department.getDepartmentName());
     }
 }

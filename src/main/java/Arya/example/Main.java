@@ -16,30 +16,43 @@ public class Main {
         String id;
         String temp;
 
-        System.out.println("Add School Management System Name (ex 'Vanier')");
+        System.out.println("Welcome to the School Management System Program");
+        System.out.println("Firstly, Add School Management System Name (ex 'Vanier')");
         SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem(input.nextLine());
+        System.out.println(" ");
+        System.out.println("Lets starts with some basics:");
+        System.out.println("You can have a maximum of 5 departments");
+        System.out.println("You can have a maximum of 200 students");
+        System.out.println("You can have a maximum of 30 courses");
+        System.out.println("You can have a maximum of 20 students");
+        System.out.println("You can have a maximum of 5 students registered per course and a maximum of 5 courses registered per student");
+        System.out.println("To select an option, either enter the number or the letter of the first word (exception: specific prompts like 'Enter Name')\n");
 
         /* Testing modify course teacher and registering student */
 //        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem("vanier");
-        schoolManagementSystem.addDepartment("arts");
-        schoolManagementSystem.addDepartment("math");
-        schoolManagementSystem.addDepartment("science");
-        schoolManagementSystem.addDepartment("health");
-        schoolManagementSystem.addDepartment("philosophy");
-        schoolManagementSystem.addStudent("arya", "khosravi", "d001");
-        schoolManagementSystem.addStudentGender("male");
-        schoolManagementSystem.addStudent("joshua", "eid",  "d001");
-        schoolManagementSystem.addStudentGender("male");
-        schoolManagementSystem.addTeacher("yi", "wang", (byte) 10, "d001");
-        schoolManagementSystem.addTeacherGender("male");
-        schoolManagementSystem.addTeacher("Mark", "wayne", (byte) 15, "d004");
-        schoolManagementSystem.addTeacherGender("male");
-        schoolManagementSystem.addCourse("photography", 3.0, "d001");
-        schoolManagementSystem.addCourse("biology", 3.0, "d004");
-        schoolManagementSystem.modifyCourseTeacher("c001", "t001");
-        schoolManagementSystem.modifyCourseTeacher("c002", "t002");
-        schoolManagementSystem.registerCourse("s001","c001", 90);
-        schoolManagementSystem.registerCourse("s002","c001", 90);
+//        schoolManagementSystem.addDepartment("arts");
+//        schoolManagementSystem.addDepartment("math");
+//        schoolManagementSystem.addDepartment("science");
+//        schoolManagementSystem.addDepartment("health");
+//        schoolManagementSystem.addDepartment("philosophy");
+//        schoolManagementSystem.addStudent("arya", "khosravi", "d001");
+//        schoolManagementSystem.addStudentGender("male");
+//        schoolManagementSystem.addStudent("joshua", "eid",  "d001");
+//        schoolManagementSystem.addStudentGender("male");
+//        schoolManagementSystem.addTeacher("yi", "wang", (byte) 10, "d001");
+//        schoolManagementSystem.addTeacherGender("male");
+//        schoolManagementSystem.addTeacher("Mark", "wayne", (byte) 15, "d004");
+//        schoolManagementSystem.addTeacherGender("male");
+//        schoolManagementSystem.addCourse("photography", 3.0, "d001");
+//        schoolManagementSystem.addCourse("biology", 3.0, "d004");
+//        schoolManagementSystem.modifyCourseTeacher("c001", "t001");
+//        schoolManagementSystem.modifyCourseTeacher("c002", "t002");
+//        schoolManagementSystem.registerCourse("s001","c001", 90);
+//        schoolManagementSystem.registerCourse("s001","c002", 80);
+//        schoolManagementSystem.registerCourse("s002","c001", 70);
+//        System.out.println(schoolManagementSystem.findCourse("c001"));
+//        System.out.println(" ");
+//        schoolManagementSystem.removeItems("s001","c001");
 
         do {
             System.out.println("Select an Option\n1. Creating Objects and Others\n2. Find Objects\n3. Print Objects\n4. Remove Objects and Registration\n5. Exit"); //add deleting
@@ -57,6 +70,7 @@ public class Main {
             switch (temp) {
                 case "1", "c" -> {
                     System.out.println("Select an Option\n1. Create a Objects\n2. Modifying Object\n3. Exit");
+                    int iterations;
                     temp = input.nextLine();
 
                     if (temp.equals("1") || temp.equals("c")) {
@@ -73,56 +87,87 @@ public class Main {
 
                         switch (temp) {
                             case "1", "d" -> {
-                                System.out.println("Add Department Name");
-                                schoolManagementSystem.addDepartment(input.nextLine());
+                                System.out.println("How many departments do you want to create?");
+                                iterations = input.nextInt();
+                                if (iterations == 0) {
+                                    System.out.println("Cannot enter 0");
+                                    break;
+                                }
+                                for (int i = 0; i < iterations; i++) {
+                                    System.out.println("Add Department Name");
+                                    schoolManagementSystem.addDepartment(input.nextLine());
+                                }
                             }
                             case "2", "s" -> {
-                                try {
-                                    System.out.println("Add First Name");
-                                    String fName = input.nextLine();
-                                    System.out.println("Add Last Name");
-                                    String lName = input.nextLine();
-                                    System.out.println("Department Id (ex 'D036')");
-                                    id = input.nextLine();
-                                    schoolManagementSystem.addStudent(fName, lName, id);
-                                    System.out.println("Add Gender (MALE, FEMALE, OTHERS)");
-                                    schoolManagementSystem.addStudentGender(input.nextLine());
-                                } catch (Exception e) {
-                                    System.out.println("This Department Doesn't Exist");
+                                System.out.println("How many departments do you want to create?");
+                                iterations = input.nextInt();
+                                if (iterations == 0) {
+                                    System.out.println("Cannot enter 0");
+                                    break;
+                                }
+                                for (int i = 0; i < iterations; i++) {
+                                    try {
+                                        System.out.println("Add First Name");
+                                        String fName = input.nextLine();
+                                        System.out.println("Add Last Name");
+                                        String lName = input.nextLine();
+                                        System.out.println("Department Id (ex 'D036')");
+                                        id = input.nextLine();
+                                        schoolManagementSystem.addStudent(fName, lName, id);
+                                        System.out.println("Add Gender (MALE, FEMALE, OTHERS)");
+                                        schoolManagementSystem.addStudentGender(input.nextLine());
+                                    } catch (Exception e) {
+                                        System.out.println("This Department Doesn't Exist");
+                                    }
                                 }
                             }
                             case "3", "t" -> {
-                                try {
-                                    System.out.println("Add First Name");
-                                    String fName = input.nextLine();
-                                    System.out.println("Add Last Name");
-                                    String lName = input.nextLine();
-                                    System.out.println("Enter Teacher Experience");
-                                    byte years = input.nextByte();
-                                    input.nextLine();
-                                    System.out.println("Add to Department (ex 'D023')");
-                                    id = input.nextLine();
-                                    schoolManagementSystem.addTeacher(fName, lName, years, id);
-                                    System.out.println("Add Gender (MALE, FEMALE, OTHERS)");
-                                    schoolManagementSystem.addTeacherGender(input.nextLine());
-                                } catch (Exception e) {
-                                    System.out.println("This Department Doesn't Exist");
+                                System.out.println("How many departments do you want to create?");
+                                iterations = input.nextInt();
+                                if (iterations == 0) {
+                                    System.out.println("Cannot enter 0");
+                                    break;
+                                }
+                                for (int i = 0; i < iterations; i++) {
+                                    try {
+                                        System.out.println("Add First Name");
+                                        String fName = input.nextLine();
+                                        System.out.println("Add Last Name");
+                                        String lName = input.nextLine();
+                                        System.out.println("Enter Teacher Experience");
+                                        byte years = input.nextByte();
+                                        input.nextLine();
+                                        System.out.println("Add to Department (ex 'D023')");
+                                        id = input.nextLine();
+                                        schoolManagementSystem.addTeacher(fName, lName, years, id);
+                                        System.out.println("Add Gender (MALE, FEMALE, OTHERS)");
+                                        schoolManagementSystem.addTeacherGender(input.nextLine());
+                                    } catch (Exception e) {
+                                        System.out.println("This Department Doesn't Exist");
+                                    }
                                 }
                             }
                             case "4", "c" -> {
-                                try {
-                                    System.out.println("Add Course Name");
-                                    String cName = input.nextLine();
-                                    System.out.println("Add Credit");
-                                    double cred = input.nextDouble();
-                                    input.nextLine();
-                                    System.out.println("Department Id (ex 'D006')");
-                                    id = input.nextLine();
-                                    schoolManagementSystem.addCourse(cName, cred, id);
-                                } catch (Exception e) {
-                                    System.out.println("This Department Doesn't Exist");
+                                System.out.println("How many departments do you want to create?");
+                                iterations = input.nextInt();
+                                if (iterations == 0) {
+                                    System.out.println("Cannot enter 0");
+                                    break;
                                 }
-
+                                for (int i = 0; i < iterations; i++) {
+                                    try {
+                                        System.out.println("Add Course Name");
+                                        String cName = input.nextLine();
+                                        System.out.println("Add Credit");
+                                        double cred = input.nextDouble();
+                                        input.nextLine();
+                                        System.out.println("Department Id (ex 'D006')");
+                                        id = input.nextLine();
+                                        schoolManagementSystem.addCourse(cName, cred, id);
+                                    } catch (Exception e) {
+                                        System.out.println("This Department Doesn't Exist");
+                                    }
+                                }
                             }
                             default -> {
                             }
@@ -137,21 +182,37 @@ public class Main {
 
                         switch (temp) {
                             case "1", "m" -> {
-                                System.out.println("Enter Course Id (ex 'C092')");
-                                String cId = input.nextLine();
-                                System.out.println("Enter Teacher Id (ex 'T047')");
-                                id = input.nextLine();
-                                schoolManagementSystem.modifyCourseTeacher(cId, id);
+                                System.out.println("How many teachers do you want to register?");
+                                iterations = input.nextInt();
+                                if (iterations == 0) {
+                                    System.out.println("Cannot enter 0");
+                                    break;
+                                }
+                                for (int i = 0; i < iterations; i++) {
+                                    System.out.println("Enter Course Id (ex 'C092')");
+                                    String cId = input.nextLine();
+                                    System.out.println("Enter Teacher Id (ex 'T047')");
+                                    id = input.nextLine();
+                                    schoolManagementSystem.modifyCourseTeacher(cId, id);
+                                }
                             }
                             case "2", "r" -> {
-                                System.out.println("Enter Course Id (ex 'C010')");
-                                String cId = input.nextLine();
-                                System.out.println("Enter Student Id (ex 'S011')");
-                                id = input.nextLine();
-                                System.out.println("Add Score");
-                                double score = input.nextDouble();
-                                input.nextLine();
-                                schoolManagementSystem.registerCourse(id, cId, score);
+                                System.out.println("How many students do you want to register?");
+                                iterations = input.nextInt();
+                                if (iterations == 0) {
+                                    System.out.println("Cannot enter 0");
+                                    break;
+                                }
+                                for (int i = 0; i < iterations; i++) {
+                                    System.out.println("Enter Course Id (ex 'C010')");
+                                    String cId = input.nextLine();
+                                    System.out.println("Enter Student Id (ex 'S011')");
+                                    id = input.nextLine();
+                                    System.out.println("Add Score");
+                                    double score = input.nextDouble();
+                                    input.nextLine();
+                                    schoolManagementSystem.registerCourse(id, cId, score);
+                                }
                             }
                             default -> {
                             }
@@ -214,23 +275,29 @@ public class Main {
                     }
                 }
                 case "4" -> {
-                    System.out.println("Enter an Object You Want to Remove or Unregister " +
-                            "(Options: department, student, courses, teachers, registered teacher, " +
-                            "registered student, everything");
-                    if (!input.nextLine().equals("registered student")) {
-                        System.out.println("Enter an Object to Remove");
-                        String item = input.nextLine();
+                    System.out.println("Enter an Object You Want to Remove or Unregister\n1.Everything\n2.Department\n3.Student\n4.Courses\n5.Teachers\n6.Registered Teacher\n7.Registered Student\n8.Exit");
+                    temp = input.nextLine();
+
+                    if (temp.equalsIgnoreCase("8") || temp.equalsIgnoreCase("e")) {
+                        break;
+                    }
+
+                    if (temp.length() > 1) {
+                        continue;
+                    }
+
+                    if (temp.equals("7")) {
+                        System.out.println("Enter Course Id");
+                        String cId = input.nextLine();
+                        System.out.println("Enter Student Id");
+                        String sId = input.nextLine();
+                        schoolManagementSystem.removeItems(sId,cId);
+                    } else {
                         System.out.println("Enter How Many You Want to Remove");
                         int count = input.nextInt();
                         System.out.println("Enter the Id of the Object You Want to Remove");
                         String startingId = input.nextLine();
-                        schoolManagementSystem.removeItems(item, count, startingId);
-                    } else {
-                        System.out.println("Enter the Course Id");
-                        String cId = input.nextLine();
-                        System.out.println("Enter the Student Id");
-                        String sId = input.nextLine();
-                        schoolManagementSystem.removeItems(sId,cId);
+                        schoolManagementSystem.removeItems(temp, count, startingId);
                     }
                 }
                 default -> {

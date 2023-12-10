@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 @Setter
 @EqualsAndHashCode
@@ -382,10 +383,16 @@ public class SchoolManagementSystem {
      */
     public double calcCourseAverage(String cId) {
         double result = 0;
-        Student[] students = findCourse(cId).getStudent();
-        for (int i = 0; i < MAX_COURSE_REGISTER_NUM; i++) {
-            if (students[i] != null) {
-                result += students[i].getAvgScore();
+        for (Student student : findCourse(cId).getStudent()) {
+            if (student == null) {
+                break;
+            }
+            Course[] courses = student.getCourses();
+            Double[] scores = student.getScore();
+            for (int i = 0; i < MAX_COURSE_REGISTER_NUM; i++) {
+                if (courses[i] == findCourse(cId)) {
+                    result += scores[i];
+                }
             }
         }
         return (result / findCourse(cId).getStudentNum());
@@ -400,7 +407,7 @@ public class SchoolManagementSystem {
     public void removeItems(String item, int count, String startingId) {
         item = item.toLowerCase();
         switch (item) {
-            case "everything" -> {
+            case "1" -> {
                 for (int i = 0; i < MAX_STUDENT_NUM; i++) {
                     smsStudents[i] = null;
                     if (i < MAX_COURSE_NUM) {
@@ -414,7 +421,7 @@ public class SchoolManagementSystem {
                     }
                 }
             }
-            case "department" -> {
+            case "2" -> {
                 if (count == 0) {
                     System.out.println("Enter more than 1 item to remove");
                 } else if (count == 1) {
@@ -443,7 +450,7 @@ public class SchoolManagementSystem {
                     }
                 }
             }
-            case "student" -> {
+            case "3" -> {
                 if (count == 0) {
                     System.out.println("Enter more than 1 item to remove");
                 } else if (count == 1) {
@@ -472,7 +479,7 @@ public class SchoolManagementSystem {
                     }
                 }
             }
-            case "teacher" -> {
+            case "4" -> {
                 if (count == 0) {
                     System.out.println("Enter more than 1 item to remove");
                 } else if (count == 1) {
@@ -501,7 +508,7 @@ public class SchoolManagementSystem {
                     }
                 }
             }
-            case "courses" -> {
+            case "5" -> {
                 if (count == 0) {
                     System.out.println("Enter more than 1 item to remove");
                 } else if (count == 1) {
@@ -530,7 +537,7 @@ public class SchoolManagementSystem {
                     }
                 }
             }
-            case "registered teacher" -> {
+            case "6" -> {
                 Course course = findCourse(startingId);
                 if (course == null) {
                     break;
@@ -550,7 +557,7 @@ public class SchoolManagementSystem {
      * @param sId student id
      * @param cId course id
      */
-    public void removeItems(String sId, String cId) {
+    public void removeItems(String sId, String cId) { //fix the display
         sId = toUpper(sId);
         cId = toUpper(cId);
 
@@ -570,11 +577,10 @@ public class SchoolManagementSystem {
         }
 
         Course[] studentCourses = student.getCourses();
-        Course[] newStudentCourses = new Course[]{null, null, null, null, null};
         double studentAvgScore = student.getAvgScore();
         Double[] studentScores = student.getScore();
-        Double[] newStudentScores = new Double[]{null, null, null, null, null};
         byte studentCourseNum = student.getCourseNum();
+        int nullIndex = 0;
 
         for (int i = 0; i < MAX_COURSE_REGISTER_NUM; i++) {
             if (studentCourses[i] == course) {
@@ -583,32 +589,47 @@ public class SchoolManagementSystem {
                 studentScores[i] = null;
                 student.setCourseNum(studentCourseNum);
             }
-            if (studentCourses[i] != null) {
-                newStudentCourses[i] = studentCourses[i];
-                newStudentScores[i] = studentScores[i];
+            if (studentCourses[i] != null && nullIndex != i) {
+                studentCourses[nullIndex] = studentCourses[i];
+                studentCourses[i] = null;
+                studentScores[nullIndex] = studentScores[i];
+                studentScores[i] = null;
+                nullIndex++;
             }
         }
+        if (studentCourseNum == 0) {
+            student.setAvgScore(0.0);
+        }
+        student.setCourses(studentCourses);
+        student.setScore(studentScores);
 
         Student[] courseStudent = course.getStudent();
-        Student[] newCourseStudent = new Student[] {null, null, null, null, null};
-        double courseScores = course.getAvgScore();
         byte courseStudentNum = course.getStudentNum();
+        nullIndex = -1;
 
         for (int i = 0; i < MAX_COURSE_REGISTER_NUM; i++) {
             if (courseStudent[i] == student) {
                 courseStudent[i] = null;
-                course.setAvgScore((courseScores * courseScores - student.getAvgScore()) / (--courseStudentNum));
-                course.setStudentNum(courseStudentNum);
+                course.setStudentNum(--courseStudentNum);
+                nullIndex = i;
             }
-            if (courseStudent[i] != null) {
-                newCourseStudent[i] = courseStudent[i];
+            if (courseStudent[i] != null && nullIndex != i && courseStudentNum != 0) {
+                courseStudent[nullIndex] = courseStudent[i];
+                cNames.append(nullIndex == 0 ? courseStudent[i].getFName() + " " + courseStudent[i].getLName() : ", " + courseStudent[i].getFName() + " " + courseStudent[i].getLName());
+                nullIndex++;
+                courseStudent[i] = null;
             }
         }
 
-        course.setStudent(newCourseStudent);
+        course.setAvgScore(calcCourseAverage(cId));
+
+        if (courseStudentNum == 0) {
+            course.setAvgScore(0.0);
+        }
+        course.setStudent(courseStudent);
 
         System.out.printf("Latest student info: %s\n", student);
-        System.out.printf("Latest course info: Course{id=%s, courseName=%s, credit=%.1f, teacher=%s, course average=%.1f, department=%s, students=[%s]}\n", cId, course.getCourseName(), course.getCredit(), (course.getTeacher().getFName() + " " + course.getTeacher().getLName()), calcCourseAverage(cId), course.getDepartment().getDepartmentName(), cNames);
+        System.out.printf("Latest course info: Course{id=%s, courseName=%s, credit=%.1f, teacher=%s, course average=%.1f, department=%s, students=[%s]}\n", cId, course.getCourseName(), course.getCredit(), (course.getTeacher().getFName() + " " + course.getTeacher().getLName()), course.getAvgScore(), course.getDepartment().getDepartmentName(), cNames);
     }
 
     /**
