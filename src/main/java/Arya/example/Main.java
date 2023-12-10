@@ -21,29 +21,31 @@ public class Main {
 
         /* Testing modify course teacher and registering student */
 //        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem("vanier");
-//        schoolManagementSystem.addDepartment("arts");
-//        schoolManagementSystem.addDepartment("math");
-//        schoolManagementSystem.addDepartment("science");
-//        schoolManagementSystem.addDepartment("health");
-//        schoolManagementSystem.addDepartment("philosophy");
-//        schoolManagementSystem.addStudent("arya", "khosravi", "d001");
-//        schoolManagementSystem.addStudentGender("male");
-//        schoolManagementSystem.addStudent("joshua", "eid",  "d001");
-//        schoolManagementSystem.addStudentGender("male");
-//        schoolManagementSystem.addTeacher("yi", "wang", (byte) 10, "d001");
-//        schoolManagementSystem.addTeacherGender("male");
-//        schoolManagementSystem.addTeacher("Mark", "wayne", (byte) 15, "d004");
-//        schoolManagementSystem.addTeacherGender("male");
-//        schoolManagementSystem.addCourse("photography", 3.0, "d001");
-//        schoolManagementSystem.addCourse("biology", 3.0, "d004");
-//        schoolManagementSystem.modifyCourseTeacher("c001", "t001");
-//        schoolManagementSystem.modifyCourseTeacher("c002", "t002");
+        schoolManagementSystem.addDepartment("arts");
+        schoolManagementSystem.addDepartment("math");
+        schoolManagementSystem.addDepartment("science");
+        schoolManagementSystem.addDepartment("health");
+        schoolManagementSystem.addDepartment("philosophy");
+        schoolManagementSystem.addStudent("arya", "khosravi", "d001");
+        schoolManagementSystem.addStudentGender("male");
+        schoolManagementSystem.addStudent("joshua", "eid",  "d001");
+        schoolManagementSystem.addStudentGender("male");
+        schoolManagementSystem.addTeacher("yi", "wang", (byte) 10, "d001");
+        schoolManagementSystem.addTeacherGender("male");
+        schoolManagementSystem.addTeacher("Mark", "wayne", (byte) 15, "d004");
+        schoolManagementSystem.addTeacherGender("male");
+        schoolManagementSystem.addCourse("photography", 3.0, "d001");
+        schoolManagementSystem.addCourse("biology", 3.0, "d004");
+        schoolManagementSystem.modifyCourseTeacher("c001", "t001");
+        schoolManagementSystem.modifyCourseTeacher("c002", "t002");
+        schoolManagementSystem.registerCourse("s001","c001", 90);
+        schoolManagementSystem.registerCourse("s002","c001", 90);
 
         do {
-            System.out.println("Select an Option\n1. Creating Objects and Others\n2. Find Objects\n3. Print Objects\n4. Exit");
+            System.out.println("Select an Option\n1. Creating Objects and Others\n2. Find Objects\n3. Print Objects\n4. Remove Objects and Registration\n5. Exit"); //add deleting
             temp = input.nextLine();
 
-            if (temp.equalsIgnoreCase("4") || temp.equalsIgnoreCase("e")) {
+            if (temp.equalsIgnoreCase("5") || temp.equalsIgnoreCase("e")) {
                 System.out.println("Exiting");
                 break;
             }
@@ -211,12 +213,32 @@ public class Main {
                         }
                     }
                 }
+                case "4" -> {
+                    System.out.println("Enter an Object You Want to Remove or Unregister " +
+                            "(Options: department, student, courses, teachers, registered teacher, " +
+                            "registered student, everything");
+                    if (!input.nextLine().equals("registered student")) {
+                        System.out.println("Enter an Object to Remove");
+                        String item = input.nextLine();
+                        System.out.println("Enter How Many You Want to Remove");
+                        int count = input.nextInt();
+                        System.out.println("Enter the Id of the Object You Want to Remove");
+                        String startingId = input.nextLine();
+                        schoolManagementSystem.removeItems(item, count, startingId);
+                    } else {
+                        System.out.println("Enter the Course Id");
+                        String cId = input.nextLine();
+                        System.out.println("Enter the Student Id");
+                        String sId = input.nextLine();
+                        schoolManagementSystem.removeItems(sId,cId);
+                    }
+                }
                 default -> {
                 }
             }
         } while (true);
 
-        /* simple version (test section)*/
+        /* simple version (test section/extra methods not included in this version)*/
 //        //creating SchoolManagementSystem
 //        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem("Vanier");
 //

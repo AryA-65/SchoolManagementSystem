@@ -17,6 +17,7 @@ public class Student {
     private static final byte MAX_COURSE_NUM = 5;
     private String fName;
     private String lName;
+    private Double[] score;
     private double avgScore;
     private Department department;
     private Gender gender;
@@ -39,6 +40,7 @@ public class Student {
         this.department = department;
         this.courses = new Course[MAX_COURSE_NUM];
         this.courseNum = 0;
+        this.score = new Double[MAX_COURSE_NUM];
         this.avgScore = 0;
     }
 
@@ -54,6 +56,6 @@ public class Student {
                 names.append(i == 0 ? courses[i].getCourseName() : ", " + courses[i].getCourseName());
             }
         }
-        return String.format("Student{id=%s, fname=%s, lname=%s, gender=%s, courseNum=%d, courses=[%s], scores=%s, department=%s}", id, fName, lName, gender, courseNum, names, avgScore, department.getDepartmentName());
+        return String.format("Student{id=%s, fname=%s, lname=%s, gender=%s, courseNum=%d, courses=[%s], scores=%s, average=%.1f, department=%s}", id, fName, lName, gender, courseNum, names, Arrays.toString(score), avgScore, department.getDepartmentName());
     }
 }
