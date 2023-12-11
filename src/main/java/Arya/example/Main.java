@@ -21,13 +21,14 @@ public class Main {
         SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem(input.nextLine());
         System.out.println(" ");
         System.out.println("Lets starts with some basics:");
-        System.out.println("You can have a maximum of 5 departments");
-        System.out.println("You can have a maximum of 200 students");
-        System.out.println("You can have a maximum of 30 courses");
-        System.out.println("You can have a maximum of 20 students");
+        System.out.println("You can have a maximum of 5 allocated departments");
+        System.out.println("You can have a maximum of 200 allocated students");
+        System.out.println("You can have a maximum of 30 allocated courses");
+        System.out.println("You can have a maximum of 20 allocated students");
         System.out.println("You can have a maximum of 5 students registered per course and a maximum of 5 courses registered per student");
         System.out.println("To select an option, either enter the number or the letter of the first word (exception: specific prompts like 'Enter Name')\n");
 
+        //repeats the loop until the user exits (options as listed below)
         do {
             System.out.println("Select an Option\n1. Creating Objects and Others\n2. Find Objects\n3. Print Objects\n4. Remove Objects and Registration\n5. Exit"); //add deleting
             temp = input.nextLine();
