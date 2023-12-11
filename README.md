@@ -27,5 +27,6 @@
      * If none of the above are true, add the course to the students registered courses (Course[] array), and also add the courses to the registered student (Student[] array)
 
 ## Class diagram
-  ![Class Diagram](https://github.com/AryA-65/SchoolManagementSystem/assets/113271844/a2c4769a-4dcc-459d-908b-8b36c6579777)
+![Class Diagram](https://github.com/AryA-65/SchoolManagementSystem/assets/113271844/d9cd3c98-4fb4-4ecc-884f-7e3d83e933d6)
+
 
