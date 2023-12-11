@@ -3,14 +3,15 @@ package Arya.example.dto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Arrays;
+
 
 @Setter
 @EqualsAndHashCode
 @Getter
 
 /**
- * class that creates an object student and assigns it values given by the user
+ * class that creates an object student and assigns it values given by the user (first name, last name, gender, courses,
+ * department, scores, etc)
  */
 
 public class Student {
